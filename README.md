@@ -27,7 +27,8 @@ options:
 If output is specifed then it will save the image, otherwise it'll just show you the image.
 Background is transparent by default.
 Fonts are TTF only.
-Experiment with font size param, and ASCII_GEN_FONT_SIZE environent to tweak the sizes.
+Experiment with font size param, and ASCII_GEN_FONT_SIZE environment variable to tweak the sizes of single char vs whole text.
+Also the text will try to ocupy the space available, it'll be centered on the image.
 
 
 ## Example
