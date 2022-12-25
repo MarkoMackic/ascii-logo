@@ -45,6 +45,7 @@ def main():
     generated_art_str = '\n'.join(generate_ascii_art(args.text, im_font))
 
     im_draw = ImageDraw.Draw(im)
+    im_draw.font = im_font
 
     (o_left, o_top, o_right, o_bottom) =  im_draw.textbbox(xy=tuple(map(lambda i: i // 2, im_size)), text=generated_art_str, anchor="mm")
 
