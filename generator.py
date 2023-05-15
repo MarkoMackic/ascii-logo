@@ -29,10 +29,13 @@ def main():
     arg_parser.add_argument('-c', '--color', help='Foreground color')
     arg_parser.add_argument('-bg', '--background-color', help='Background color')
     arg_parser.add_argument('-o', '--output', help='Output file path')
+    arg_parser.add_argument('-m', '--margin', help='Margin to leave on sides')
 
     args = arg_parser.parse_args()
 
     assert not args.text is None, 'Text parameter must be supplied'
+
+    margin = int(args.margin or 0)
 
     im_size = tuple([int(size) for size in args.size.split(',')]) if not args.size is None else (200, 200)
 
@@ -49,8 +52,8 @@ def main():
 
     (o_left, o_top, o_right, o_bottom) =  im_draw.textbbox(xy=tuple(map(lambda i: i // 2, im_size)), text=generated_art_str, anchor="mm")
 
-    if o_left < 0 or o_top < 0 or o_right > im_size[0] or o_bottom > im_size[1]:
-        print("Minimal image size for this configuration is", o_right - o_left, ',',  o_bottom - o_top)
+    if o_left < margin or o_top < margin or o_right > im_size[0] - margin or o_bottom > im_size[1] - margin:
+        print("Minimal image size for this configuration is", (o_right - o_left) + margin * 2, ',',  (o_bottom - o_top) + margin*2)
         exit(1)
 
     # try to adjust font size based on space available
@@ -62,7 +65,7 @@ def main():
 
         (o_left, o_top, o_right, o_bottom) =  im_draw.textbbox(xy=tuple(map(lambda i: i // 2, im_size)), text=generated_art_str, anchor="mm", font=new_font)
 
-        if o_left < 0 or o_top < 0 or o_right > im_size[0] or o_bottom > im_size[1]:
+        if o_left < margin or o_top < margin or o_right > im_size[0] - margin or o_bottom > im_size[1] - margin:
             break;
 
         font = new_font
